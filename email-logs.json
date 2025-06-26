@@ -1,0 +1,941 @@
+[
+  {
+    "recipient": "truthmiles@gmail.com",
+    "recipientName": "管理員",
+    "success": false,
+    "error": "jgthwtoijpmmowql is not defined",
+    "timestamp": "2025-06-01T23:27:40.832Z"
+  },
+  {
+    "recipient": "truthmiles@gmail.com",
+    "recipientName": "管理員",
+    "success": false,
+    "error": "jgthwtoijpmmowql is not defined",
+    "timestamp": "2025-06-01T23:28:30.126Z"
+  },
+  {
+    "recipient": "truthmiles@gmail.com",
+    "recipientName": "管理員",
+    "success": false,
+    "error": "jgthwtoijpmmowql is not defined",
+    "timestamp": "2025-06-01T23:28:43.004Z"
+  },
+  {
+    "recipient": "truthmiles@gmail.com",
+    "recipientName": "管理員",
+    "success": false,
+    "error": "jgthwtoijpmmowql is not defined",
+    "timestamp": "2025-06-01T23:30:41.234Z"
+  },
+  {
+    "recipient": "truthmiles@gmail.com",
+    "recipientName": "管理員",
+    "success": false,
+    "error": "jgthwtoijpmmowql is not defined",
+    "timestamp": "2025-06-01T23:30:53.693Z"
+  },
+  {
+    "recipient": "truthmiles@gmail.com",
+    "recipientName": "管理員",
+    "success": false,
+    "error": "jgthwtoijpmmowql is not defined",
+    "timestamp": "2025-06-01T23:31:05.973Z"
+  },
+  {
+    "recipient": "truthmiles@gmail.com",
+    "recipientName": "管理員",
+    "success": false,
+    "error": "jgthwtoijpmmowql is not defined",
+    "timestamp": "2025-06-01T23:31:10.663Z"
+  },
+  {
+    "recipient": "truthmiles@gmail.com",
+    "recipientName": "管理員",
+    "success": true,
+    "timestamp": "2025-06-01T23:38:04.128Z",
+    "messageId": "<1fbf8855-4c93-8551-5685-12b52809ad68@gmail.com>",
+    "gameData": {
+      "date": "2025-06-02",
+      "totalGames": 7,
+      "clearRate": "0.0",
+      "isEmpty": false
+    }
+  },
+  {
+    "recipient": "truthmiles@gmail.com",
+    "recipientName": "管理員",
+    "success": true,
+    "timestamp": "2025-06-01T23:40:05.524Z",
+    "messageId": "<faedbe5c-8e1d-f194-2bbe-1d2c3545184d@gmail.com>",
+    "gameData": {
+      "date": "2025-06-02",
+      "totalGames": 7,
+      "clearRate": "0.0",
+      "isEmpty": false
+    }
+  },
+  {
+    "success": false,
+    "error": "Cannot read properties of undefined (reading 'date')",
+    "timestamp": "2025-06-02T01:10:33.684Z"
+  },
+  {
+    "success": false,
+    "error": "Cannot read properties of undefined (reading 'date')",
+    "timestamp": "2025-06-02T01:18:42.463Z"
+  },
+  {
+    "recipient": "truthmiles@gmail.com",
+    "recipientName": "管理員",
+    "success": true,
+    "timestamp": "2025-06-02T01:36:38.210Z",
+    "messageId": "<4f0ad418-5254-4a95-d6bb-ba6827c92591@gmail.com>",
+    "gameData": {
+      "date": "2025-06-02",
+      "totalGames": 7,
+      "clearRate": "0.0",
+      "isEmpty": false
+    }
+  },
+  {
+    "recipient": "truthmiles@gmail.com",
+    "recipientName": "truthmiles",
+    "success": true,
+    "timestamp": "2025-06-02T01:43:05.129Z",
+    "messageId": "<8997ba1f-8ff7-dae5-c664-751a0564531d@gmail.com>",
+    "gameData": {
+      "date": "2025-06-02",
+      "totalGames": 7,
+      "clearRate": "0.0",
+      "isEmpty": false
+    }
+  },
+  {
+    "recipient": "truthmiles@gmail.com",
+    "recipientName": "管理員",
+    "success": true,
+    "timestamp": "2025-06-02T01:45:14.820Z",
+    "messageId": "<ac6dcc86-ea4c-b669-4ac5-623be5a9db36@gmail.com>",
+    "gameData": {
+      "date": "2025-06-02",
+      "totalGames": 7,
+      "clearRate": "0.0",
+      "isEmpty": false
+    }
+  },
+  {
+    "recipient": "truthmiles@gmail.com",
+    "recipientName": "管理員",
+    "success": true,
+    "timestamp": "2025-06-02T01:45:15.431Z",
+    "messageId": "<943019e8-dc60-ef7b-875f-4586dd575798@gmail.com>",
+    "gameData": {
+      "date": "2025-06-02",
+      "totalGames": 7,
+      "clearRate": "0.0",
+      "isEmpty": false
+    }
+  },
+  {
+    "recipient": "truthmiles@gmail.com",
+    "recipientName": "管理員",
+    "success": true,
+    "timestamp": "2025-06-02T01:46:22.009Z",
+    "messageId": "<60964218-a2e3-1ade-83da-99290eb5ec2b@gmail.com>",
+    "gameData": {
+      "date": "2025-06-02",
+      "totalGames": 7,
+      "clearRate": "0.0",
+      "isEmpty": false
+    }
+  },
+  {
+    "recipient": "truthmiles@gmail.com",
+    "recipientName": "管理員",
+    "success": true,
+    "timestamp": "2025-06-02T01:46:22.769Z",
+    "messageId": "<7ea1bd42-7749-db28-6971-b0c39cf4d74a@gmail.com>",
+    "gameData": {
+      "date": "2025-06-02",
+      "totalGames": 7,
+      "clearRate": "0.0",
+      "isEmpty": false
+    }
+  },
+  {
+    "recipient": "truthmiles@gmail.com",
+    "recipientName": "Miles 測試",
+    "success": true,
+    "timestamp": "2025-06-02T01:52:14.831Z",
+    "messageId": "<d59aa06d-17eb-43ff-410b-7d4e97f163d6@gmail.com>",
+    "gameData": {
+      "date": "2025-06-02",
+      "totalGames": 7,
+      "clearRate": "0.0",
+      "isEmpty": false
+    }
+  },
+  {
+    "recipient": "truthmiles@gmail.com",
+    "recipientName": "Miles 測試",
+    "success": true,
+    "timestamp": "2025-06-02T01:52:15.291Z",
+    "messageId": "<0e9234eb-a307-4440-4175-15a64ee588b7@gmail.com>",
+    "gameData": {
+      "date": "2025-06-02",
+      "totalGames": 7,
+      "clearRate": "0.0",
+      "isEmpty": false
+    }
+  },
+  {
+    "recipient": "truthmiles@gmail.com",
+    "recipientName": "Miles 測試",
+    "success": true,
+    "timestamp": "2025-06-02T01:52:42.672Z",
+    "messageId": "<23dd702d-1df4-b12d-9a27-5a693c1af199@gmail.com>",
+    "gameData": {
+      "date": "2025-06-02",
+      "totalGames": 7,
+      "clearRate": "0.0",
+      "isEmpty": false
+    }
+  },
+  {
+    "recipient": "truthmiles@gmail.com",
+    "recipientName": "Miles 測試",
+    "success": true,
+    "timestamp": "2025-06-02T02:12:16.739Z",
+    "messageId": "<990da312-8541-4ddf-a1ea-c39e70e93c00@gmail.com>",
+    "gameData": {
+      "date": "2025-06-02",
+      "totalGames": 7,
+      "clearRate": "0.0",
+      "isEmpty": false
+    }
+  },
+  {
+    "recipient": "truthmiles@gmail.com",
+    "recipientName": "Miles 測試",
+    "success": true,
+    "timestamp": "2025-06-02T02:12:18.050Z",
+    "messageId": "<82d65a93-e1a6-a9b9-b5b8-29d29fbd602c@gmail.com>",
+    "gameData": {
+      "date": "2025-06-02",
+      "totalGames": 7,
+      "clearRate": "0.0",
+      "isEmpty": false
+    }
+  },
+  {
+    "recipient": "truthmiles@gmail.com",
+    "recipientName": "Miles 測試",
+    "success": true,
+    "timestamp": "2025-06-02T02:27:12.727Z",
+    "messageId": "<9a733f32-5874-adda-92f9-3ddfdf15dd3e@gmail.com>",
+    "gameData": {
+      "date": "2025-06-02",
+      "totalGames": 7,
+      "clearRate": "0.0",
+      "isEmpty": false
+    }
+  },
+  {
+    "recipient": "truthmiles@gmail.com",
+    "recipientName": "truthmiles",
+    "success": true,
+    "timestamp": "2025-06-02T06:43:14.193Z",
+    "messageId": "<fc1d84c8-acd8-13e4-17ff-3154ff66cf33@gmail.com>",
+    "gameData": {
+      "date": "2025-06-02",
+      "totalGames": 7,
+      "clearRate": "0.0",
+      "isEmpty": false
+    }
+  },
+  {
+    "recipient": "truthmiles@gmail.com",
+    "recipientName": "truthmiles",
+    "success": true,
+    "timestamp": "2025-06-02T06:47:24.976Z",
+    "messageId": "<79fe3f6b-7d1a-1372-aff0-6bb3c4f061fc@gmail.com>",
+    "gameData": {
+      "date": "2025-06-02",
+      "totalGames": 7,
+      "clearRate": "0.0",
+      "isEmpty": false
+    }
+  },
+  {
+    "recipient": "truthmiles@gmail.com",
+    "recipientName": "truthmiles",
+    "success": true,
+    "timestamp": "2025-06-02T06:48:07.587Z",
+    "messageId": "<8bcd355c-e47c-b033-3855-224e8d40884f@gmail.com>",
+    "gameData": {
+      "date": "2025-06-02",
+      "totalGames": 7,
+      "clearRate": "0.0",
+      "isEmpty": false
+    }
+  },
+  {
+    "recipient": "sealscatmama@gmail.com",
+    "recipientName": "sealscatmama",
+    "success": true,
+    "timestamp": "2025-06-02T06:50:05.027Z",
+    "messageId": "<0fe517be-3fa1-5800-9e32-6f3cfef78748@gmail.com>",
+    "gameData": {
+      "date": "2025-06-02",
+      "totalGames": 7,
+      "clearRate": "0.0",
+      "isEmpty": false
+    }
+  },
+  {
+    "recipient": "sealscatmama@gmail.com",
+    "recipientName": "sealscatmama",
+    "success": true,
+    "timestamp": "2025-06-02T06:54:05.821Z",
+    "messageId": "<731170a1-454e-3b7e-1dae-530edc1aae8e@gmail.com>",
+    "gameData": {
+      "date": "2025-06-02",
+      "totalGames": 7,
+      "clearRate": "0.0",
+      "isEmpty": false
+    }
+  },
+  {
+    "recipient": "sealscatmama@gmail.com",
+    "recipientName": "sealscatmama",
+    "success": true,
+    "timestamp": "2025-06-02T07:14:28.566Z",
+    "messageId": "<efc49c04-099e-ea24-a60e-998076432d02@gmail.com>",
+    "gameData": {
+      "date": "2025-06-02",
+      "totalGames": 7,
+      "clearRate": "0.0",
+      "isEmpty": false
+    }
+  },
+  {
+    "recipient": "sealscatmama@gmail.com",
+    "recipientName": "sealscatmama",
+    "success": true,
+    "timestamp": "2025-06-02T07:20:19.810Z",
+    "messageId": "<fa0abd91-64c3-af55-d3d0-d056836b209d@gmail.com>",
+    "gameData": {
+      "date": "2025-06-02",
+      "totalGames": 7,
+      "clearRate": "0.0",
+      "isEmpty": false
+    }
+  },
+  {
+    "recipient": "sealscatmama@gmail.com",
+    "recipientName": "sealscatmama",
+    "success": true,
+    "timestamp": "2025-06-02T07:23:33.004Z",
+    "messageId": "<f3291143-2303-fa77-7351-8677244a0f67@gmail.com>",
+    "gameData": {
+      "date": "2025-06-02",
+      "totalGames": 7,
+      "clearRate": "0.0",
+      "isEmpty": false
+    }
+  },
+  {
+    "recipient": "sealscatmama@gmail.com",
+    "recipientName": "sealscatmama",
+    "success": true,
+    "timestamp": "2025-06-02T07:27:35.587Z",
+    "messageId": "<c49d6277-2327-0fa1-fe83-d3536a3b3e09@gmail.com>",
+    "gameData": {
+      "date": "2025-06-02",
+      "totalGames": 7,
+      "clearRate": "0.0",
+      "isEmpty": false
+    }
+  },
+  {
+    "recipient": "sealscatmama@gmail.com",
+    "recipientName": "sealscatmama",
+    "success": true,
+    "timestamp": "2025-06-02T07:38:15.716Z",
+    "messageId": "<487c6daa-8e91-50bd-74f0-85b4f084367e@gmail.com>",
+    "gameData": {
+      "date": "2025-06-02",
+      "totalGames": 0,
+      "clearRate": 0,
+      "isEmpty": true
+    }
+  },
+  {
+    "recipient": "sealscatmama@gmail.com",
+    "recipientName": "sealscatmama",
+    "success": true,
+    "timestamp": "2025-06-02T07:38:56.187Z",
+    "messageId": "<3b8d9632-f77f-b93a-81ce-804830eab8e2@gmail.com>",
+    "gameData": {
+      "date": "2025-06-02",
+      "totalGames": 7,
+      "clearRate": "0.0",
+      "isEmpty": false
+    }
+  },
+  {
+    "recipient": "sealscatmama@gmail.com",
+    "recipientName": "sealscatmama",
+    "success": true,
+    "timestamp": "2025-06-02T08:19:15.795Z",
+    "messageId": "<a7ab958d-a2c7-3edb-5ff8-6a4a45a77d96@gmail.com>",
+    "hasCharts": true,
+    "chartCount": 5,
+    "gameData": {
+      "date": "2025-06-02",
+      "totalGames": 8,
+      "clearRate": "0.0",
+      "isEmpty": false
+    }
+  },
+  {
+    "recipient": "sealscatmama@gmail.com",
+    "recipientName": "sealscatmama",
+    "success": true,
+    "timestamp": "2025-06-02T08:22:52.007Z",
+    "messageId": "<5c02c565-4b06-c98f-a9f0-ece40fbee041@gmail.com>",
+    "hasCharts": true,
+    "chartCount": 5,
+    "gameData": {
+      "date": "2025-06-02",
+      "totalGames": 8,
+      "clearRate": "0.0",
+      "isEmpty": false
+    }
+  },
+  {
+    "recipient": "sealscatmama@gmail.com",
+    "recipientName": "sealscatmama",
+    "success": true,
+    "timestamp": "2025-06-02T08:24:29.589Z",
+    "messageId": "<a412c19e-ce37-5ff0-16ab-0f07c136faf3@gmail.com>",
+    "hasCharts": true,
+    "chartCount": 5,
+    "gameData": {
+      "date": "2025-06-02",
+      "totalGames": 8,
+      "clearRate": "0.0",
+      "isEmpty": false
+    }
+  },
+  {
+    "recipient": "sealscatmama@gmail.com",
+    "recipientName": "sealscatmama",
+    "success": true,
+    "timestamp": "2025-06-02T08:26:15.181Z",
+    "messageId": "<06f51bf7-632c-72d2-a430-4cbb2b3f2800@gmail.com>",
+    "hasCharts": true,
+    "chartCount": 5,
+    "gameData": {
+      "date": "2025-06-02",
+      "totalGames": 8,
+      "clearRate": "25.0",
+      "isEmpty": false
+    }
+  },
+  {
+    "recipient": "sealscatmama@gmail.com",
+    "recipientName": "sealscatmama",
+    "success": true,
+    "timestamp": "2025-06-02T08:28:11.852Z",
+    "messageId": "<6b84d98c-e493-99ee-c2fe-370d76ba17e6@gmail.com>",
+    "hasCharts": true,
+    "chartCount": 5,
+    "gameData": {
+      "date": "2025-06-02",
+      "totalGames": 8,
+      "clearRate": "25.0",
+      "isEmpty": false
+    }
+  },
+  {
+    "recipient": "sealscatmama@gmail.com",
+    "recipientName": "sealscatmama",
+    "success": true,
+    "timestamp": "2025-06-02T08:29:16.064Z",
+    "messageId": "<cf953bc2-e9b7-a5de-48f9-de00b79fc416@gmail.com>",
+    "hasCharts": true,
+    "chartCount": 5,
+    "gameData": {
+      "date": "2025-06-02",
+      "totalGames": 8,
+      "clearRate": "25.0",
+      "isEmpty": false
+    }
+  },
+  {
+    "recipient": "sealscatmama@gmail.com",
+    "recipientName": "sealscatmama",
+    "success": true,
+    "timestamp": "2025-06-02T08:30:00.263Z",
+    "messageId": "<b563319f-cf04-e7f7-6948-9f901abaf86c@gmail.com>",
+    "hasCharts": true,
+    "chartCount": 5,
+    "gameData": {
+      "date": "2025-06-02",
+      "totalGames": 8,
+      "clearRate": "25.0",
+      "isEmpty": false
+    }
+  },
+  {
+    "recipient": "sealscatmama@gmail.com",
+    "recipientName": "sealscatmama",
+    "success": true,
+    "timestamp": "2025-06-02T08:30:38.093Z",
+    "messageId": "<2dfe8f23-700d-f8df-99c5-d9521adccdac@gmail.com>",
+    "hasCharts": true,
+    "chartCount": 5,
+    "gameData": {
+      "date": "2025-06-02",
+      "totalGames": 8,
+      "clearRate": "25.0",
+      "isEmpty": false
+    }
+  },
+  {
+    "recipient": "sealscatmama@gmail.com",
+    "recipientName": "sealscatmama",
+    "success": true,
+    "timestamp": "2025-06-02T08:33:34.605Z",
+    "messageId": "<ee3fb2c2-14df-ea42-8d5e-f5b27bbdf3ed@gmail.com>",
+    "hasCharts": true,
+    "chartCount": 5,
+    "gameData": {
+      "date": "2025-06-02",
+      "totalGames": 8,
+      "clearRate": "25.0",
+      "isEmpty": false
+    }
+  },
+  {
+    "recipient": "sealscatmama@gmail.com",
+    "recipientName": "sealscatmama",
+    "success": true,
+    "timestamp": "2025-06-02T08:35:56.907Z",
+    "messageId": "<98448b97-f589-8f1f-4308-fa38104cadde@gmail.com>",
+    "hasCharts": true,
+    "chartCount": 5,
+    "gameData": {
+      "date": "2025-06-02",
+      "totalGames": 8,
+      "clearRate": "25.0",
+      "isEmpty": false
+    }
+  },
+  {
+    "recipient": "sealscatmama@gmail.com",
+    "recipientName": "sealscatmama",
+    "success": true,
+    "timestamp": "2025-06-02T08:37:52.450Z",
+    "messageId": "<22c6ca2c-1fbc-09c3-aa29-5e2e0bd9c02e@gmail.com>",
+    "hasCharts": true,
+    "chartCount": 5,
+    "gameData": {
+      "date": "2025-06-02",
+      "totalGames": 8,
+      "clearRate": "25.0",
+      "isEmpty": false
+    }
+  },
+  {
+    "recipient": "sealscatmama@gmail.com",
+    "recipientName": "sealscatmama",
+    "success": true,
+    "timestamp": "2025-06-02T08:38:50.640Z",
+    "messageId": "<859b680b-b296-a227-e0c6-30806d5a17fe@gmail.com>",
+    "hasCharts": true,
+    "chartCount": 5,
+    "gameData": {
+      "date": "2025-06-02",
+      "totalGames": 8,
+      "clearRate": "25.0",
+      "isEmpty": false
+    }
+  },
+  {
+    "recipient": "sealscatmama@gmail.com",
+    "recipientName": "sealscatmama",
+    "success": true,
+    "timestamp": "2025-06-02T08:40:21.641Z",
+    "messageId": "<446fe778-d5fa-cd39-11cc-d1d1e1dcecaf@gmail.com>",
+    "hasCharts": true,
+    "chartCount": 5,
+    "gameData": {
+      "date": "2025-06-02",
+      "totalGames": 8,
+      "clearRate": "25.0",
+      "isEmpty": false
+    }
+  },
+  {
+    "recipient": "sealscatmama@gmail.com",
+    "recipientName": "sealscatmama",
+    "success": true,
+    "timestamp": "2025-06-02T08:46:45.096Z",
+    "messageId": "<707d495e-5264-024b-9a55-3acb60d373a1@gmail.com>",
+    "hasCharts": true,
+    "chartCount": 5,
+    "gameData": {
+      "date": "2025-06-02",
+      "totalGames": 8,
+      "clearRate": "25.0",
+      "isEmpty": false
+    }
+  },
+  {
+    "recipient": "sealscatmama@gmail.com",
+    "recipientName": "sealscatmama",
+    "success": true,
+    "timestamp": "2025-06-02T08:49:09.347Z",
+    "messageId": "<e2341301-b0c2-459d-2f37-c4b4856e0c64@gmail.com>",
+    "hasCharts": true,
+    "chartCount": 5,
+    "gameData": {
+      "date": "2025-06-02",
+      "totalGames": 8,
+      "clearRate": "25.0",
+      "isEmpty": false
+    }
+  },
+  {
+    "recipient": "sealscatmama@gmail.com",
+    "recipientName": "sealscatmama",
+    "success": true,
+    "timestamp": "2025-06-02T08:52:54.971Z",
+    "messageId": "<530e00ed-79ba-3c7d-448b-3c314b213f50@gmail.com>",
+    "hasCharts": true,
+    "chartCount": 5,
+    "gameData": {
+      "date": "2025-06-02",
+      "totalGames": 8,
+      "clearRate": "25.0",
+      "isEmpty": false
+    }
+  },
+  {
+    "recipient": "sealscatmama@gmail.com",
+    "recipientName": "sealscatmama",
+    "success": true,
+    "timestamp": "2025-06-02T08:56:05.093Z",
+    "messageId": "<3316c802-b162-3798-9d1f-32f07247e2c8@gmail.com>",
+    "hasCharts": true,
+    "chartCount": 5,
+    "gameData": {
+      "date": "2025-06-02",
+      "totalGames": 8,
+      "clearRate": "25.0",
+      "isEmpty": false
+    }
+  },
+  {
+    "recipient": "sealscatmama@gmail.com",
+    "recipientName": "sealscatmama",
+    "success": true,
+    "timestamp": "2025-06-02T08:57:08.434Z",
+    "messageId": "<e87084ca-a13b-afb0-fc59-579fcbc3eb83@gmail.com>",
+    "hasCharts": true,
+    "chartCount": 5,
+    "gameData": {
+      "date": "2025-06-02",
+      "totalGames": 8,
+      "clearRate": "25.0",
+      "isEmpty": false
+    }
+  },
+  {
+    "recipient": "sealscatmama@gmail.com",
+    "recipientName": "sealscatmama",
+    "success": true,
+    "timestamp": "2025-06-02T08:58:17.770Z",
+    "messageId": "<8f70ae33-fff8-635a-181f-ddde83b2b091@gmail.com>",
+    "hasCharts": true,
+    "chartCount": 6,
+    "gameData": {
+      "date": "2025-06-02",
+      "totalGames": 8,
+      "clearRate": "25.0",
+      "isEmpty": false
+    }
+  },
+  {
+    "recipient": "sealscatmama@gmail.com",
+    "recipientName": "sealscatmama",
+    "success": true,
+    "timestamp": "2025-06-02T09:02:14.477Z",
+    "messageId": "<c47bc7f0-8fb8-2d08-3f8e-9b9d492f5a31@gmail.com>",
+    "hasCharts": true,
+    "chartCount": 6,
+    "gameData": {
+      "date": "2025-06-02",
+      "totalGames": 8,
+      "clearRate": "25.0",
+      "isEmpty": false
+    }
+  },
+  {
+    "recipient": "sealscatmama@gmail.com",
+    "recipientName": "sealscatmama",
+    "success": true,
+    "timestamp": "2025-06-02T09:05:35.580Z",
+    "messageId": "<fd997385-5789-4412-1f94-7d23a4c1cf76@gmail.com>",
+    "hasCharts": true,
+    "chartCount": 6,
+    "gameData": {
+      "date": "2025-06-02",
+      "totalGames": 8,
+      "clearRate": "25.0",
+      "isEmpty": false
+    }
+  },
+  {
+    "recipient": "sealscatmama@gmail.com",
+    "recipientName": "sealscatmama",
+    "success": true,
+    "timestamp": "2025-06-02T09:07:51.532Z",
+    "messageId": "<08f8ab9e-7b8a-eb5c-63f2-ac332a71174b@gmail.com>",
+    "hasCharts": true,
+    "chartCount": 6,
+    "gameData": {
+      "date": "2025-06-02",
+      "totalGames": 8,
+      "clearRate": "25.0",
+      "isEmpty": false
+    }
+  },
+  {
+    "recipient": "sealscatmama@gmail.com",
+    "recipientName": "sealscatmama",
+    "success": true,
+    "timestamp": "2025-06-02T09:10:07.674Z",
+    "messageId": "<419e5843-a12e-4eee-c01d-284f587cd309@gmail.com>",
+    "hasCharts": true,
+    "chartCount": 6,
+    "gameData": {
+      "date": "2025-06-02",
+      "totalGames": 8,
+      "clearRate": "25.0",
+      "isEmpty": false
+    }
+  },
+  {
+    "recipient": "sealscatmama@gmail.com",
+    "recipientName": "sealscatmama",
+    "success": true,
+    "timestamp": "2025-06-02T09:12:04.385Z",
+    "messageId": "<40f58f85-1bc7-3049-4578-e6d9e212bc62@gmail.com>",
+    "hasCharts": true,
+    "chartCount": 6,
+    "gameData": {
+      "date": "2025-06-02",
+      "totalGames": 8,
+      "clearRate": "25.0",
+      "isEmpty": false
+    }
+  },
+  {
+    "recipient": "sealscatmama@gmail.com",
+    "recipientName": "sealscatmama",
+    "success": true,
+    "timestamp": "2025-06-02T09:13:49.667Z",
+    "messageId": "<e2f91e64-698e-1be6-b42c-0741307a4080@gmail.com>",
+    "hasCharts": true,
+    "chartCount": 6,
+    "gameData": {
+      "date": "2025-06-02",
+      "totalGames": 8,
+      "clearRate": "25.0",
+      "isEmpty": false
+    }
+  },
+  {
+    "recipient": "sealscatmama@gmail.com",
+    "recipientName": "sealscatmama",
+    "success": true,
+    "timestamp": "2025-06-02T09:24:13.954Z",
+    "messageId": "<14334303-88c0-5975-6e0d-0de242398cf6@gmail.com>",
+    "hasCharts": true,
+    "chartCount": 6,
+    "gameData": {
+      "date": "2025-06-02",
+      "totalGames": 8,
+      "clearRate": "25.0",
+      "isEmpty": false
+    }
+  },
+  {
+    "recipient": "sealscatmama@gmail.com",
+    "recipientName": "sealscatmama",
+    "success": true,
+    "timestamp": "2025-06-02T09:34:23.962Z",
+    "messageId": "<2cd69330-edfd-7a4e-42e9-a64df696f511@gmail.com>",
+    "hasCharts": true,
+    "chartCount": 6,
+    "gameData": {
+      "date": "2025-06-02",
+      "totalGames": 8,
+      "clearRate": "25.0",
+      "isEmpty": false
+    }
+  },
+  {
+    "recipient": "sealscatmama@gmail.com",
+    "recipientName": "sealscatmama",
+    "success": true,
+    "timestamp": "2025-06-02T09:37:08.524Z",
+    "messageId": "<2dbcde80-cd3a-400a-4751-a5fc1a729c5a@gmail.com>",
+    "hasCharts": true,
+    "chartCount": 6,
+    "gameData": {
+      "date": "2025-06-02",
+      "totalGames": 8,
+      "clearRate": "25.0",
+      "isEmpty": false
+    }
+  },
+  {
+    "recipient": "sealscatmama@gmail.com",
+    "recipientName": "sealscatmama",
+    "success": true,
+    "timestamp": "2025-06-02T09:55:29.640Z",
+    "messageId": "<47487966-4527-5e96-7057-c350e2ab91da@gmail.com>",
+    "hasCharts": true,
+    "chartCount": 6,
+    "gameData": {
+      "date": "2025-06-02",
+      "totalGames": 8,
+      "clearRate": "25.0",
+      "isEmpty": false
+    }
+  },
+  {
+    "recipient": "sealscatmama@gmail.com",
+    "recipientName": "sealscatmama",
+    "success": true,
+    "timestamp": "2025-06-02T09:58:00.329Z",
+    "messageId": "<1572a9fd-4055-7c85-0cfc-3e454e570461@gmail.com>",
+    "hasCharts": false,
+    "chartCount": 0,
+    "gameData": {
+      "date": "2025-06-02",
+      "totalGames": 8,
+      "clearRate": "25.0",
+      "isEmpty": false
+    }
+  },
+  {
+    "recipient": "sealscatmama@gmail.com",
+    "recipientName": "sealscatmama",
+    "success": true,
+    "timestamp": "2025-06-02T09:59:05.570Z",
+    "messageId": "<61fe64f3-c17e-7120-016a-33af864e3275@gmail.com>",
+    "hasCharts": true,
+    "chartCount": 6,
+    "gameData": {
+      "date": "2025-06-02",
+      "totalGames": 8,
+      "clearRate": "25.0",
+      "isEmpty": false
+    }
+  },
+  {
+    "recipient": "sealscatmama@gmail.com",
+    "recipientName": "sealscatmama",
+    "success": true,
+    "timestamp": "2025-06-02T10:03:23.167Z",
+    "messageId": "<2fedb9c5-d502-205d-9213-3947fb7b36bb@gmail.com>",
+    "hasCharts": true,
+    "chartCount": 7,
+    "gameData": {
+      "date": "2025-06-02",
+      "totalGames": 8,
+      "clearRate": "25.0",
+      "isEmpty": false
+    }
+  },
+  {
+    "recipient": "sealscatmama@gmail.com",
+    "recipientName": "sealscatmama",
+    "success": true,
+    "timestamp": "2025-06-02T10:08:52.028Z",
+    "messageId": "<81d94b81-4ab9-e86d-d8fb-6942c11ce667@gmail.com>",
+    "hasCharts": true,
+    "chartCount": 7,
+    "gameData": {
+      "date": "2025-06-02",
+      "totalGames": 8,
+      "clearRate": "25.0",
+      "isEmpty": false
+    }
+  },
+  {
+    "recipient": "sealscatmama@gmail.com",
+    "recipientName": "sealscatmama",
+    "success": true,
+    "timestamp": "2025-06-02T10:12:02.928Z",
+    "messageId": "<f317f97a-7170-22f3-6208-21e1e5a66673@gmail.com>",
+    "hasCharts": true,
+    "chartCount": 6,
+    "gameData": {
+      "date": "2025-06-02",
+      "totalGames": 8,
+      "clearRate": "25.0",
+      "isEmpty": false
+    }
+  },
+  {
+    "recipient": "sealscatmama@gmail.com",
+    "recipientName": "sealscatmama",
+    "success": true,
+    "timestamp": "2025-06-02T10:15:21.557Z",
+    "messageId": "<463e7ab8-5b4f-2d95-0473-68a87530e306@gmail.com>",
+    "hasCharts": true,
+    "chartCount": 7,
+    "gameData": {
+      "date": "2025-06-02",
+      "totalGames": 8,
+      "clearRate": "25.0",
+      "isEmpty": false
+    }
+  },
+  {
+    "recipient": "sealscatmama@gmail.com",
+    "recipientName": "sealscatmama",
+    "success": true,
+    "timestamp": "2025-06-02T10:18:19.808Z",
+    "messageId": "<504add93-839f-54c7-d86d-a1be404627d0@gmail.com>",
+    "hasCharts": true,
+    "chartCount": 7,
+    "gameData": {
+      "date": "2025-06-02",
+      "totalGames": 8,
+      "clearRate": "25.0",
+      "isEmpty": false
+    }
+  },
+  {
+    "recipient": "sealscatmama@gmail.com",
+    "recipientName": "sealscatmama",
+    "success": true,
+    "timestamp": "2025-06-02T11:10:36.855Z",
+    "messageId": "<2cfbe49a-ffa2-65a4-1a3d-20f4cc636a08@gmail.com>",
+    "hasCharts": true,
+    "chartCount": 7,
+    "gameData": {
+      "date": "2025-06-02",
+      "totalGames": 8,
+      "clearRate": "25.0",
+      "isEmpty": false
+    }
+  }
+]

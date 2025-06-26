@@ -1,0 +1,1533 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <title>遊戲數據中心 - Email發送</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            font-family: sans-serif;
+            display: flex;
+            height: 100vh;
+        }
+
+        /* 徹底隱藏所有滾動條 */
+        *::-webkit-scrollbar {
+            display: none;
+            width: 0 !important;
+            height: 0 !important;
+        }
+
+        * {
+            -ms-overflow-style: none !important;
+            scrollbar-width: none !important;
+        }
+
+        html,
+        body {
+            overflow-x: hidden;
+        }
+
+        .sidebar {
+            width: 200px;
+            background-color: #2c3e50;
+            color: white;
+            padding-top: 20px;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar button {
+            font-size: 16px;
+            width: 100%;
+            padding: 15px;
+            border: none;
+            background: none;
+            color: white;
+            text-align: left;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sidebar button:hover {
+            background-color: #34495e;
+        }
+
+        .sidebar button.active {
+            background-color: #667eea;
+            border-left: 4px solid #fff;
+        }
+
+        .content {
+            flex: 1;
+            padding: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow-y: auto;
+            height: 100vh;
+        }
+
+        .page {
+            display: none;
+            height: 100%;
+            overflow-y: auto;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Email頁面樣式 */
+        .email-page {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: white;
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .email-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .email-block {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .email-block:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .block-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .block-icon {
+            font-size: 2rem;
+            margin-right: 15px;
+        }
+
+        .block-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #333;
+            margin: 0;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 500;
+            color: #555;
+            margin-bottom: 8px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%);
+            color: #212529;
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #dc3545 0%, #e74c3c 100%);
+        }
+
+        .btn-info {
+            background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        .status-active {
+            background: #28a745;
+            animation: pulse 2s infinite;
+        }
+
+        .status-inactive {
+            background: #dc3545;
+        }
+
+        @keyframes pulse {
+            0% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .email-list {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+
+        .email-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .email-item:last-child {
+            border-bottom: none;
+        }
+
+        .email-info {
+            flex: 1;
+        }
+
+        .email-address {
+            font-weight: 600;
+            color: #2c5aa0;
+        }
+
+        .email-time {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .logs-block {
+            grid-column: 1 / -1;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .log-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 15px;
+            margin-bottom: 8px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .log-success {
+            border-left-color: #28a745;
+            background: #d4edda;
+        }
+
+        .log-error {
+            border-left-color: #dc3545;
+            background: #f8d7da;
+        }
+
+        .log-info {
+            border-left-color: #17a2b8;
+            background: #d1ecf1;
+        }
+
+        .log-warning {
+            border-left-color: #ffc107;
+            background: #fff3cd;
+        }
+
+        .log-content {
+            flex: 1;
+        }
+
+        .log-time {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked+.slider {
+            background-color: #667eea;
+        }
+
+        input:checked+.slider:before {
+            transform: translateX(26px);
+        }
+
+        .preview-block {
+            grid-column: 1 / -1;
+        }
+
+        .email-preview {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 15px;
+            font-family: Arial, sans-serif;
+        }
+
+        .preview-header {
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .preview-subject {
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #333;
+        }
+
+        .preview-from {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .email-grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .sidebar {
+                width: 150px;
+            }
+
+            .sidebar button {
+                font-size: 14px;
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="content">
+        <div id="email" class="page active">
+            <div class="email-page">
+
+                <div class="email-grid">
+                    <!-- Email設定區塊 -->
+                    <div class="email-block">
+                        <div class="block-header">
+                            <span class="block-icon">⚙️</span>
+                            <h2 class="block-title">Email設定</h2>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">接收者Email地址</label>
+                            <input type="email" id="emailAddress" class="form-input" placeholder="example@gmail.com" />
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">發送時間</label>
+                            <input type="time" id="sendTime" class="form-input" value="09:00" />
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">啟用自動發送</label>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="autoSend">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+
+                        <button class="btn" onclick="addEmail()">➕ 新增Email</button>
+
+                        <div class="email-list" id="emailList">
+                            <div style="text-align: center; color: #666; padding: 20px;">
+                                尚未設定任何Email
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Email內容設置區塊 -->
+                    <div class="email-block" style="display: none;">
+                        <div class="block-header">
+                            <span class="block-icon">✏️</span>
+                            <h2 class="block-title">Email內容設置</h2>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">郵件主題</label>
+                            <input type="text" id="emailSubject" class="form-input" placeholder="🎮 今日遊戲數據報告 - {{date}}"
+                                value="🎮 今日遊戲數據報告 - {{date}}" />
+                            <small style="color: #666;">可使用變數：{{date}} - 當前日期</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">郵件內容模板</label>
+                            <textarea id="emailTemplate" class="form-input" rows="15"
+                                style="font-family: 'Courier New', monospace; font-size: 14px;"
+                                placeholder="輸入您的郵件內容...">親愛的用戶，
+
+以下是今日的遊戲數據摘要：
+
+📊 今日總體數據
+• 今日遊戲次數: {{totalGames}}
+• 今日通關次數: {{totalCleared}}
+• 今日通關率: {{clearRate}}%
+• 今日遊玩時間: {{totalPlayTime}} 分鐘
+
+🎯 今日關卡表現
+• 第 1 關: {{level1Stats}}
+• 第 2 關: {{level2Stats}}
+
+🛒 今日商品購買
+• 血量: {{itemHealth}} 個
+• 時間: {{itemTime}} 個
+• 速度: {{itemSpeed}} 個
+• 復活: {{itemRevive}} 個
+
+此郵件由遊戲數據系統自動發送。
+報告日期: {{date}}</textarea>
+                            <small style="color: #666;">
+                                可用變數：{{totalGames}}, {{totalCleared}}, {{clearRate}}, {{totalPlayTime}},
+                                {{level1Stats}}, {{level2Stats}}, {{itemHealth}}, {{itemTime}}, {{itemSpeed}},
+                                {{itemRevive}}, {{date}}
+                            </small>
+                        </div>
+
+                        <div style="margin-top: 15px;">
+                            <button class="btn btn-success" onclick="saveEmailTemplate()">💾 儲存模板</button>
+                            <button class="btn btn-info" onclick="resetTemplate()">🔄 重置為預設</button>
+                            <button class="btn" onclick="insertVariable()">📝 插入變數</button>
+                        </div>
+
+                        <div
+                            style="margin-top: 15px; padding: 10px; background: #f8f9fa; border-radius: 5px; font-size: 0.9rem;">
+                            <strong>💡 提示：</strong>
+                            <ul style="margin: 5px 0; padding-left: 20px;">
+                                <li>使用 {{變數名}} 來插入動態數據</li>
+                                <li>可以自由編輯文字內容和格式</li>
+                                <li>支援 Emoji 和特殊符號</li>
+                                <li>修改後記得點擊「儲存模板」</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- 測試與控制區塊 -->
+                    <div class="email-block">
+                        <div class="block-header">
+                            <span class="block-icon">🎮</span>
+                            <h2 class="block-title">測試與控制</h2>
+                        </div>
+
+                        <div style="margin-bottom: 20px;">
+                            <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                                <span class="status-indicator" id="systemStatus"></span>
+                                <span id="systemStatusText">系統狀態：未啟動</span>
+                            </div>
+                            <div style="font-size: 0.9rem; color: #666;" id="nextSendTime">
+                                下次發送時間：--:--
+                            </div>
+                        </div>
+
+                        <!-- <button class="btn btn-success" onclick="startScheduler()" id="startBtn">🚀 啟動定時發送</button> -->
+                        <!-- <button class="btn btn-warning" onclick="stopScheduler()" id="stopBtn" style="display: none;">⏸️ 停止定時發送</button> -->
+                        <button class="btn btn-info" onclick="sendTestEmail()" id="testBtn">📤 立即測試發送</button>
+                        <button class="btn btn-danger" onclick="clearLogs()">🗑️ 清除記錄</button>
+
+                        <div style="margin-top: 20px;">
+                            <h4 style="margin-bottom: 10px;">📊 發送統計</h4>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                                <div
+                                    style="text-align: center; padding: 10px; background: #e8f5e8; border-radius: 8px;">
+                                    <div style="font-size: 1.5rem; font-weight: bold; color: #28a745;"
+                                        id="successCount">0</div>
+                                    <div style="font-size: 0.8rem; color: #666;">成功發送</div>
+                                </div>
+                                <div
+                                    style="text-align: center; padding: 10px; background: #f8e8e8; border-radius: 8px;">
+                                    <div style="font-size: 1.5rem; font-weight: bold; color: #dc3545;" id="errorCount">0
+                                    </div>
+                                    <div style="font-size: 0.8rem; color: #666;">發送失敗</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Email內容預覽 -->
+                    <div class="email-block preview-block" style="display: none;">
+                        <div class="block-header">
+                            <span class="block-icon">👁️</span>
+                            <h2 class="block-title">Email內容預覽</h2>
+                        </div>
+
+                        <button class="btn" onclick="generatePreview()">🔄 更新預覽</button>
+                        <button class="btn btn-info" onclick="debugTemplate()">🐛 調試模板</button>
+                        <button class="btn btn-success" onclick="refreshRealData()">📊 刷新當日數據</button>
+
+                        <div class="email-preview" id="emailPreview">
+                            <div class="preview-header">
+                                <div class="preview-subject">🎮 每日遊戲數據報告 - 2025-06-02</div>
+                                <div class="preview-from">來自: 遊戲數據系統</div>
+                            </div>
+                            <div id="previewContent">
+                                <p>親愛的管理員，</p>
+                                <p>以下是今日的遊戲數據摘要：</p>
+                                <br>
+                                <h3>📊 總體數據</h3>
+                                <ul>
+                                    <li>總遊戲次數: <strong>24</strong></li>
+                                    <li>總通關次數: <strong>6</strong></li>
+                                    <li>整體通關率: <strong>25.0%</strong></li>
+                                    <li>總遊玩時間: <strong>25 分鐘</strong></li>
+                                </ul>
+                                <br>
+                                <h3>🎯 關卡表現</h3>
+                                <ul>
+                                    <li>第 1 關: 3/8 通關 (37.5%)</li>
+                                    <li>第 2 關: 3/16 通關 (18.8%)</li>
+                                </ul>
+                                <br>
+                                <h3>🛒 商品購買</h3>
+                                <ul>
+                                    <li>血量: 10 個</li>
+                                    <li>時間: 10 個</li>
+                                    <li>速度: 8 個</li>
+                                    <li>復活: 5 個</li>
+                                </ul>
+                                <br>
+                                <p>詳細報告請查看完整數據面板</p>
+                                <p>此郵件由系統自動發送，請勿回覆。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 發送記錄 -->
+                    <div class="email-block logs-block" style="display: none;">
+                        <div class="block-header">
+                            <span class="block-icon">📝</span>
+                            <h2 class="block-title">發送記錄</h2>
+                        </div>
+
+                        <div id="emailLogs">
+                            <div class="log-item log-info">
+                                <div class="log-content">
+                                    <div>系統已初始化</div>
+                                </div>
+                                <div class="log-time" id="initTime"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 全域變數
+        let emailSettings = JSON.parse(localStorage.getItem('emailSettings')) || [];
+        let emailTemplate = localStorage.getItem('emailTemplate') || '';
+        let emailSubject = localStorage.getItem('emailSubject') || '';
+        let schedulerRunning = false;
+        let schedulerInterval = null;
+        let successCount = parseInt(localStorage.getItem('successCount')) || 0;
+        let errorCount = parseInt(localStorage.getItem('errorCount')) || 0;
+
+        // 初始化系統
+        function initEmailSystem() {
+            loadEmailTemplate();
+            setupRealtimePreview();
+            updateEmailList();
+            updateSystemStatus();
+            updateStatistics();
+
+            // 初始化時自動獲取當日真實數據
+            refreshRealData().then(() => {
+                generatePreview();
+            }).catch(() => {
+                generatePreview();
+            });
+
+            addLog('系統已初始化', 'info');
+            document.getElementById('initTime').textContent = new Date().toLocaleString();
+
+            // 檢查是否有自動啟動的設定
+            const hasAutoSend = emailSettings.some(email => email.autoSend);
+            if (hasAutoSend) {
+                startScheduler();
+            }
+        }
+
+        // 載入 Email 模板
+        function loadEmailTemplate() {
+            const savedTemplate = localStorage.getItem('emailTemplate');
+            const savedSubject = localStorage.getItem('emailSubject');
+
+            if (savedTemplate) {
+                document.getElementById('emailTemplate').value = savedTemplate;
+                emailTemplate = savedTemplate;
+            }
+
+            if (savedSubject) {
+                document.getElementById('emailSubject').value = savedSubject;
+                emailSubject = savedSubject;
+            }
+        }
+
+        // 儲存 Email 模板
+        function saveEmailTemplate() {
+            emailTemplate = document.getElementById('emailTemplate').value;
+            emailSubject = document.getElementById('emailSubject').value;
+
+            localStorage.setItem('emailTemplate', emailTemplate);
+            localStorage.setItem('emailSubject', emailSubject);
+
+            addLog('Email 模板已儲存', 'success');
+            generatePreview();
+        }
+
+        // 即時更新預覽
+        function setupRealtimePreview() {
+            const templateTextarea = document.getElementById('emailTemplate');
+            const subjectInput = document.getElementById('emailSubject');
+
+            templateTextarea.addEventListener('input', function () {
+                clearTimeout(this.updateTimeout);
+                this.updateTimeout = setTimeout(() => {
+                    generatePreview();
+                }, 500);
+            });
+
+            subjectInput.addEventListener('input', function () {
+                clearTimeout(this.updateTimeout);
+                this.updateTimeout = setTimeout(() => {
+                    generatePreview();
+                }, 500);
+            });
+        }
+
+        // 重置模板為預設
+        function resetTemplate() {
+            if (confirm('確定要重置為預設模板嗎？')) {
+                const defaultTemplate = `親愛的用戶，
+
+以下是今日的遊戲數據摘要：
+
+📊 今日總體數據
+• 今日遊戲次數: {{totalGames}}
+• 今日通關次數: {{totalCleared}}
+• 今日通關率: {{clearRate}}%
+• 今日遊玩時間: {{totalPlayTime}} 分鐘
+
+🎯 今日關卡表現
+• 第 1 關: {{level1Stats}}
+• 第 2 關: {{level2Stats}}
+
+🛒 今日商品購買
+• 血量: {{itemHealth}} 個
+• 時間: {{itemTime}} 個
+• 速度: {{itemSpeed}} 個
+• 復活: {{itemRevive}} 個
+
+此郵件由遊戲數據系統自動發送。
+報告日期: {{date}}`;
+
+                const defaultSubject = '🎮 今日遊戲數據報告 - {{date}}';
+
+                document.getElementById('emailTemplate').value = defaultTemplate;
+                document.getElementById('emailSubject').value = defaultSubject;
+
+                saveEmailTemplate();
+                addLog('模板已重置為預設', 'info');
+            }
+        }
+
+        // 插入變數
+        function insertVariable() {
+            const variables = [
+                '{{date}} - 當前日期 (格式：2025-6-2)',
+                '{{totalGames}} - 總遊戲次數',
+                '{{totalCleared}} - 總通關次數',
+                '{{clearRate}} - 整體通關率',
+                '{{totalPlayTime}} - 總遊玩時間',
+                '{{level1Stats}} - 第1關統計',
+                '{{level2Stats}} - 第2關統計',
+                '{{itemHealth}} - 血量道具',
+                '{{itemTime}} - 時間道具',
+                '{{itemSpeed}} - 速度道具',
+                '{{itemRevive}} - 復活道具'
+            ];
+
+            const choice = prompt('選擇要插入的變數：\n\n' +
+                variables.map((v, i) => `${i + 1}. ${v}`).join('\n') +
+                '\n\n請輸入數字 (1-' + variables.length + ')：');
+
+            if (choice && !isNaN(choice)) {
+                const index = parseInt(choice) - 1;
+                if (index >= 0 && index < variables.length) {
+                    const variable = variables[index].split(' - ')[0];
+                    const textarea = document.getElementById('emailTemplate');
+                    const cursorPos = textarea.selectionStart;
+                    const textBefore = textarea.value.substring(0, cursorPos);
+                    const textAfter = textarea.value.substring(textarea.selectionEnd);
+
+                    textarea.value = textBefore + variable + textAfter;
+                    textarea.focus();
+                    textarea.setSelectionRange(cursorPos + variable.length, cursorPos + variable.length);
+                }
+            }
+        }
+
+        // 調試模板功能
+        function debugTemplate() {
+            const currentTemplate = document.getElementById('emailTemplate').value;
+            const currentSubject = document.getElementById('emailSubject').value;
+
+            console.log('=== 模板調試信息 ===');
+            console.log('原始主題:', currentSubject);
+            console.log('原始內容:', currentTemplate);
+
+            const testData = {
+                totalGames: 24,
+                totalCleared: 6,
+                clearRate: 25.0,
+                totalPlayTime: 25,
+                levelStats: {
+                    '1': { cleared: 3, total: 8, rate: 37.5 },
+                    '2': { cleared: 3, total: 16, rate: 18.8 }
+                },
+                itemStats: {
+                    '血量': 10,
+                    '時間': 10,
+                    '速度': 8,
+                    '復活': 5
+                }
+            };
+
+            console.log('測試數據:', testData);
+
+            const processedSubject = processTemplate(currentSubject, testData);
+            const processedContent = processTemplate(currentTemplate, testData);
+
+            console.log('處理後主題:', processedSubject);
+            console.log('處理後內容:', processedContent);
+
+            addLog('調試信息已輸出到控制台 (F12)', 'info');
+
+            alert(`調試信息：
+      
+原始主題: ${currentSubject}
+處理後主題: ${processedSubject}
+
+原始內容前100字: ${currentTemplate.substring(0, 100)}...
+處理後內容前100字: ${processedContent.substring(0, 100)}...
+
+變數替換測試:
+- {{date}}: ${new Date().toLocaleDateString('zh-TW', { year: 'numeric', month: 'numeric', day: 'numeric' }).replace(/\//g, '-')}
+- {{totalGames}}: ${testData.totalGames}
+- {{clearRate}}: ${testData.clearRate}
+
+詳細信息請查看控制台 (F12)`);
+        }
+
+        // 處理模板變數替換
+        function processTemplate(template, data) {
+            return template
+                .replace(/{{date}}/g, new Date().toLocaleDateString('zh-TW', {
+                    year: 'numeric',
+                    month: 'numeric',
+                    day: 'numeric'
+                }).replace(/\//g, '-'))
+                .replace(/{{totalGames}}/g, data.totalGames)
+                .replace(/{{totalCleared}}/g, data.totalCleared)
+                .replace(/{{clearRate}}/g, data.clearRate)
+                .replace(/{{totalPlayTime}}/g, data.totalPlayTime)
+                .replace(/{{level1Stats}}/g, `${data.levelStats['1'].cleared}/${data.levelStats['1'].total} 通關 (${data.levelStats['1'].rate}%)`)
+                .replace(/{{level2Stats}}/g, `${data.levelStats['2'].cleared}/${data.levelStats['2'].total} 通關 (${data.levelStats['2'].rate}%)`)
+                .replace(/{{itemHealth}}/g, data.itemStats['血量'])
+                .replace(/{{itemTime}}/g, data.itemStats['時間'])
+                .replace(/{{itemSpeed}}/g, data.itemStats['速度'])
+                .replace(/{{itemRevive}}/g, data.itemStats['復活']);
+        }
+
+        // 新增Email
+        function addEmail() {
+            const emailAddress = document.getElementById('emailAddress').value.trim();
+            const sendTime = document.getElementById('sendTime').value;
+            const autoSend = document.getElementById('autoSend').checked;
+
+            if (!emailAddress || !sendTime) {
+                alert('請填寫完整的Email地址和發送時間');
+                return;
+            }
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(emailAddress)) {
+                alert('請輸入有效的Email地址');
+                return;
+            }
+
+            const exists = emailSettings.find(email => email.address === emailAddress);
+            if (exists) {
+                alert('此Email地址已存在');
+                return;
+            }
+
+            const newEmail = {
+                id: Date.now(),
+                address: emailAddress,
+                time: sendTime,
+                autoSend: autoSend,
+                lastSent: null
+            };
+
+            // 發送到伺服器
+            fetch('/api/emails', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(newEmail)
+            })
+                .then(res => res.json())
+                .then(response => {
+                    if (response.success) {
+                        addLog(`✅ 新增並註冊寄信任務: ${emailAddress} (${sendTime})`, 'success');
+                        emailSettings.push(newEmail);
+                        saveSettings();
+                        updateEmailList();
+                    } else {
+                        addLog(`❌ 新增失敗: ${response.message}`, 'error');
+                        alert(response.message || '伺服器錯誤');
+                    }
+                })
+                .catch(err => {
+                    console.error('錯誤:', err);
+                    // 如果伺服器無法連接，仍然在本地保存
+                    emailSettings.push(newEmail);
+                    saveSettings();
+                    updateEmailList();
+                    addLog(`⚠️ 本地新增成功: ${emailAddress} (伺服器無法連接)`, 'warning');
+                });
+
+            // 清空表單
+            document.getElementById('emailAddress').value = '';
+            document.getElementById('sendTime').value = '09:00';
+            document.getElementById('autoSend').checked = false;
+        }
+
+        // 儲存設定
+        function saveSettings() {
+            localStorage.setItem('emailSettings', JSON.stringify(emailSettings));
+        }
+
+        // 更新Email列表
+        function updateEmailList() {
+            const emailList = document.getElementById('emailList');
+
+            if (emailSettings.length === 0) {
+                emailList.innerHTML = `
+          <div style="text-align: center; color: #666; padding: 20px;">
+            尚未設定任何Email
+          </div>
+        `;
+                return;
+            }
+
+            emailList.innerHTML = emailSettings.map(email => `
+        <div class="email-item">
+          <div class="email-info">
+            <div class="email-address">${email.address}</div>
+            <div class="email-time">
+              ${email.time} 
+              ${email.autoSend ? '<span style="color: #28a745;">●</span> 自動發送' : '<span style="color: #dc3545;">●</span> 手動發送'}
+            </div>
+            ${email.lastSent ? `<div style="font-size: 0.8rem; color: #999;">上次發送: ${new Date(email.lastSent).toLocaleString()}</div>` : ''}
+          </div>
+          <div>
+            <button class="btn btn-danger" style="padding: 5px 10px; font-size: 0.8rem;" onclick="removeEmail(${email.id})">刪除</button>
+          </div>
+        </div>
+      `).join('');
+        }
+
+        // 移除Email
+        function removeEmail(id) {
+            if (confirm('確定要刪除此Email設定嗎？')) {
+                const emailToDelete = emailSettings.find(email => email.id === id);
+                if (!emailToDelete) return;
+
+                // 呼叫後端 API 刪除任務
+                fetch('/api/emails/' + encodeURIComponent(emailToDelete.address), {
+                    method: 'DELETE'
+                })
+                    .then(res => res.json())
+                    .then(result => {
+                        if (result.success) {
+                            emailSettings = emailSettings.filter(email => email.id !== id);
+                            saveSettings();
+                            updateEmailList();
+                            addLog(`已刪除 Email: ${emailToDelete.address}`, 'info');
+                        } else {
+                            alert('❌ 無法刪除後台任務: ' + result.message);
+                        }
+                    })
+                    .catch(err => {
+                        console.error('刪除 Email 任務錯誤:', err);
+                        // 如果伺服器無法連接，仍然在本地刪除
+                        emailSettings = emailSettings.filter(email => email.id !== id);
+                        saveSettings();
+                        updateEmailList();
+                        addLog(`⚠️ 本地刪除成功: ${emailToDelete.address} (伺服器無法連接)`, 'warning');
+                    });
+            }
+        }
+
+        // 啟動定時發送
+        function startScheduler() {
+            if (schedulerRunning) {
+                addLog('定時發送已在運行中', 'warning');
+                return;
+            }
+
+            const autoSendEmails = emailSettings.filter(email => email.autoSend);
+            if (autoSendEmails.length === 0) {
+                alert('沒有啟用自動發送的Email設定');
+                return;
+            }
+
+            schedulerRunning = true;
+            checkAndSendEmails();
+            schedulerInterval = setInterval(checkAndSendEmails, 60000);
+
+            updateSystemStatus();
+            updateButtonStates();
+            addLog(`定時發送已啟動，監控 ${autoSendEmails.length} 個Email`, 'success');
+        }
+
+        // 停止定時發送
+        function stopScheduler() {
+            if (!schedulerRunning) {
+                addLog('定時發送未在運行', 'warning');
+                return;
+            }
+
+            schedulerRunning = false;
+            if (schedulerInterval) {
+                clearInterval(schedulerInterval);
+                schedulerInterval = null;
+            }
+
+            updateSystemStatus();
+            updateButtonStates();
+            addLog('定時發送已停止', 'info');
+        }
+
+        // 檢查並發送Email
+        function checkAndSendEmails() {
+            const now = new Date();
+            const currentTime = now.getHours().toString().padStart(2, '0') + ':' +
+                now.getMinutes().toString().padStart(2, '0');
+
+            const autoSendEmails = emailSettings.filter(email =>
+                email.autoSend && email.time === currentTime
+            );
+
+            autoSendEmails.forEach(email => {
+                const today = now.toDateString();
+                const lastSentDate = email.lastSent ? new Date(email.lastSent).toDateString() : null;
+
+                if (lastSentDate !== today) {
+                    sendEmailToAddress(email.address, false);
+                    email.lastSent = now.toISOString();
+                }
+            });
+
+            if (autoSendEmails.length > 0) {
+                saveSettings();
+                updateEmailList();
+            }
+        }
+
+        // 測試發送
+        function sendTestEmail() {
+            if (emailSettings.length === 0) {
+                alert('請先設定至少一個Email地址');
+                return;
+            }
+
+            addLog('開始測試發送...', 'info');
+
+            emailSettings.forEach(async (emailSetting) => {
+                try {
+                    addLog(`準備發送測試郵件到: ${emailSetting.address}`, 'info');
+
+                    const gameData = await fetchGameData();
+
+
+
+                    console.log('測試發送使用的遊戲數據:', gameData);
+
+                    const testData = {
+                        to: emailSetting.address,
+                        to_name: emailSetting.address.split('@')[0],
+                        subject: processTemplate(document.getElementById('emailSubject').value || '🧪 當日測試郵件 - {{date}}', gameData),
+                        body: processTemplate(document.getElementById('emailTemplate').value || `這是一封當日測試郵件。
+
+發送時間: {{date}}
+收件人: ${emailSetting.address}
+
+當日遊戲數據：
+- 今日遊戲次數: {{totalGames}}
+- 今日通關次數: {{totalCleared}}
+- 今日通關率: {{clearRate}}%
+- 今日遊玩時間: {{totalPlayTime}} 分鐘
+
+如果您收到此郵件，表示當日數據系統運作正常！
+
+此郵件由遊戲數據系統發送。`, gameData)
+                    };
+
+                    console.log('測試發送參數:', testData);
+
+                    // 觸發後端發送
+                    const response = await fetch('/trigger-report', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(testData)
+                    });
+
+                    const result = await response.json();
+
+                    if (result.success) {
+                        addLog(`✅ 測試發送成功: ${emailSetting.address}`, 'success');
+                        successCount++;
+                        localStorage.setItem('successCount', successCount);
+                        updateStatistics();
+                    } else {
+                        throw new Error(result.error || '發送失敗');
+                    }
+
+                } catch (error) {
+                    addLog(`❌ 測試發送失敗: ${emailSetting.address} - ${error.message}`, 'error');
+                    console.error('Test email error:', error);
+                    errorCount++;
+                    localStorage.setItem('errorCount', errorCount);
+                    updateStatistics();
+                }
+            });
+        }
+        function getTaiwanDateString() {
+            const now = new Date();
+            const taiwanTime = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Taipei" }));
+            const yyyy = taiwanTime.getFullYear();
+            const mm = (taiwanTime.getMonth() + 1).toString().padStart(2, '0');
+            const dd = taiwanTime.getDate().toString().padStart(2, '0');
+            return `${yyyy}-${mm}-${dd}`;  // ✅ 保證台灣時區正確日期
+        }
+
+        // 發送Email到指定地址
+        async function sendEmailToAddress(emailAddress, isTest = false) {
+            try {
+                addLog(`${isTest ? '測試' : '定時'}發送中: ${emailAddress}`, 'info');
+
+                const gameData = await fetchGameData();
+                const currentTemplate = document.getElementById('emailTemplate').value;
+                const currentSubject = document.getElementById('emailSubject').value;
+
+                const emailData = {
+                    to: emailAddress,
+                    to_name: emailAddress.split('@')[0],
+                    subject: processTemplate(currentSubject, gameData),
+                    body: processTemplate(currentTemplate, gameData)
+                };
+
+                const response = await fetch('/trigger-report', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(emailData)
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    addLog(`✅ ${isTest ? '測試' : '定時'}發送成功: ${emailAddress}`, 'success');
+                    successCount++;
+                    localStorage.setItem('successCount', successCount);
+                    updateStatistics();
+                } else {
+                    throw new Error(result.error || '發送失敗');
+                }
+
+            } catch (error) {
+                addLog(`❌ ${isTest ? '測試' : '定時'}發送失敗: ${emailAddress} - ${error.message}`, 'error');
+                console.error('Email sending error:', error);
+                errorCount++;
+                localStorage.setItem('errorCount', errorCount);
+                updateStatistics();
+            }
+        }
+
+        function getTaiwanToday() {
+            const now = new Date();
+            const taiwanTime = new Date(now.getTime() + (8 * 60 * 60 * 1000));
+            // return taiwanTime.toISOString().split('T')[0];
+            return getTaiwanDateString();
+        }
+
+        // 獲取當日遊戲數據
+        async function fetchGameData() {
+            // const baseUrl = "https://script.google.com/macros/s/AKfycbyPBgJEWE5pVuZnxyX94AgFTLxl_lzhWJdlVRZgwjEPrer4PCRrZHslgT-RMowV6fPM/exec";
+            const baseUrl = "https://script.google.com/macros/s/AKfycbw-QZD3yZbdJWXWGzBe-CKWaK1doLtmGO64zo8sB0bbA0ga9bJaDVmm3mfPNBndq9uV/exe";
+            try {
+                let today = getTaiwanToday();
+
+                // today = "2025-06-02";//強制使用
+                console.log('獲取日期:', today);
+
+                const res = await fetch(`${baseUrl}?action=getDateData&date=${today}`);
+                console.log(`${baseUrl}?action=getDateData&date=${today}`);
+
+                const result = await res.json();
+
+                if (result.error) {
+                    if (result.availableDates && result.availableDates.length > 0) {
+                        console.log('可用的日期 TAB:', result.availableDates);
+                    }
+                    throw new Error(result.error);
+                }
+
+                if (!result.data || result.data.length === 0) {
+                    if (result.availableDates && result.availableDates.length > 0) {
+                        console.log('建議使用以下日期:', result.availableDates);
+                    }
+
+                    return {
+                        totalGames: 0,
+                        totalCleared: 0,
+                        clearRate: 0,
+                        totalPlayTime: 0,
+                        levelStats: {
+                            '1': { cleared: 0, total: 0, rate: 0 },
+                            '2': { cleared: 0, total: 0, rate: 0 }
+                        },
+                        itemStats: {
+                            '血量': 0,
+                            '時間': 0,
+                            '速度': 0,
+                            '復活': 0
+                        },
+                        isToday: true,
+                        date: today,
+                        message: result.message,
+                        availableDates: result.availableDates || []
+                    };
+                }
+
+                const analyzed = analyzeTodayGameData(result.data);
+                analyzed.message = result.message;
+                analyzed.date = today;
+                analyzed.isToday = true;
+                analyzed.count = result.count;
+
+                return analyzed;
+
+            } catch (error) {
+                console.error('獲取當日數據失敗，使用預設數據:', error);
+
+                const today = getTaiwanToday();
+                const fallbackData = {
+                    totalGames: 0,
+                    totalCleared: 0,
+                    clearRate: 0,
+                    totalPlayTime: 0,
+                    levelStats: {
+                        '1': { cleared: 0, total: 0, rate: 0 },
+                        '2': { cleared: 0, total: 0, rate: 0 }
+                    },
+                    itemStats: {
+                        '血量': 0,
+                        '時間': 0,
+                        '速度': 0,
+                        '復活': 0
+                    },
+                    isToday: true,
+                    date: today,
+                    error: error.message
+                };
+
+                return fallbackData;
+            }
+        }
+
+        // 分析當日遊戲數據
+        function analyzeTodayGameData(data) {
+            console.log(`當日數據筆數: ${data.length}`);
+
+            if (data.length === 0) {
+                const today = getTaiwanToday();
+                return {
+                    totalGames: 0,
+                    totalCleared: 0,
+                    clearRate: 0,
+                    totalPlayTime: 0,
+                    levelStats: {
+                        '1': { cleared: 0, total: 0, rate: 0 },
+                        '2': { cleared: 0, total: 0, rate: 0 }
+                    },
+                    itemStats: {
+                        '血量': 0,
+                        '時間': 0,
+                        '速度': 0,
+                        '復活': 0
+                    },
+                    isToday: true,
+                    date: today
+                };
+            }
+
+            const levelStats = {};
+            const itemStats = {};
+            let totalPlayTimeSeconds = 0;
+
+            for (const row of data) {
+                const level = row.level || "1";
+                const cleared = row.isCleared === "TRUE" || row.isCleared === "true" || row.isCleared === true || row.isCleared === "1";
+
+                levelStats[level] = levelStats[level] || { total: 0, cleared: 0 };
+                levelStats[level].total++;
+                if (cleared) levelStats[level].cleared++;
+
+                if (row.itemsBought && row.itemsBought !== "None") {
+                    row.itemsBought.split(",").forEach(entry => {
+                        const [item, count] = entry.trim().split(":");
+                        if (item && count) {
+                            const itemNameMap = {
+                                'life': '血量',
+                                'clock': '時間',
+                                'speed': '速度',
+                                'revive': '復活'
+                            };
+                            const displayName = itemNameMap[item.toLowerCase()] || item;
+                            itemStats[displayName] = (itemStats[displayName] || 0) + parseInt(count || 0);
+                        }
+                    });
+                }
+
+                if (row.playTime) {
+                    const secs = timeToSeconds(row.playTime);
+                    if (!isNaN(secs) && secs > 0) {
+                        totalPlayTimeSeconds += secs;
+                    }
+                }
+            }
+
+            const totalGames = data.length;
+            const totalCleared = data.filter(row =>
+                row.isCleared === "TRUE" || row.isCleared === "true" || row.isCleared === true || row.isCleared === "1"
+            ).length;
+
+            Object.keys(levelStats).forEach(level => {
+                const stats = levelStats[level];
+                stats.rate = stats.total > 0 ? ((stats.cleared / stats.total) * 100).toFixed(1) : 0;
+            });
+
+            const today = getTaiwanToday();
+            return {
+                totalGames,
+                totalCleared,
+                clearRate: totalGames > 0 ? ((totalCleared / totalGames) * 100).toFixed(1) : 0,
+                totalPlayTime: Math.round(totalPlayTimeSeconds / 60),
+                levelStats,
+                itemStats: {
+                    '血量': itemStats['血量'] || 0,
+                    '時間': itemStats['時間'] || 0,
+                    '速度': itemStats['速度'] || 0,
+                    '復活': itemStats['復活'] || 0
+                },
+                isToday: true,
+                date: today
+            };
+        }
+
+        // 時間轉換函數
+        function timeToSeconds(t) {
+            if (!t) return 0;
+
+            try {
+                let timeStr = t.toString();
+
+                if (timeStr.startsWith('PT')) {
+                    timeStr = timeStr.substring(2);
+                    timeStr = timeStr.replace(/\.:(\d+)/, ':$1');
+                }
+
+                const parts = timeStr.split(":").map(Number);
+
+                if (parts.length === 3) {
+                    const [h, m, s] = parts;
+                    if (isNaN(h) || isNaN(m) || isNaN(s)) return 0;
+                    return h * 3600 + m * 60 + s;
+                } else if (parts.length === 2) {
+                    const [m, s] = parts;
+                    if (isNaN(m) || isNaN(s)) return 0;
+                    return m * 60 + s;
+                }
+
+                return 0;
+            } catch (error) {
+                console.error("時間轉換錯誤:", t, error);
+                return 0;
+            }
+        }
+
+        // 刷新當日真實數據
+        async function refreshRealData() {
+            addLog('正在從 Google Sheets 刷新當日真實遊戲數據...', 'info');
+
+            try {
+                const todayData = await fetchGameData();
+                localStorage.setItem('todayGameData', JSON.stringify(todayData));
+
+                if (todayData.totalGames === 0) {
+                    addLog(`📅 ${todayData.date} 當日暫無遊戲數據${todayData.message ? ' - ' + todayData.message : ''}`, 'warning');
+                } else {
+                    addLog(`✅ 當日數據刷新成功！今日遊戲: ${todayData.totalGames} 場, 通關率: ${todayData.clearRate}%`, 'success');
+                }
+
+                generatePreview();
+                return todayData;
+            } catch (error) {
+                addLog(`❌ 當日數據刷新失敗: ${error.message}`, 'error');
+                throw error;
+            }
+        }
+
+        // 更新預覽
+        async function generatePreview() {
+            const gameData = await fetchGameData();
+            const currentTemplate = document.getElementById('emailTemplate').value;
+            const currentSubject = document.getElementById('emailSubject').value;
+
+            const processedSubject = processTemplate(currentSubject, gameData);
+            const processedContent = processTemplate(currentTemplate, gameData);
+
+            document.querySelector('.preview-subject').textContent = processedSubject;
+            document.getElementById('previewContent').innerHTML =
+                processedContent.replace(/\n/g, '<br>').replace(/•/g, '&bull;');
+
+            addLog('Email預覽已更新', 'info');
+        }
+
+        // 更新系統狀態
+        function updateSystemStatus() {
+            const statusIndicator = document.getElementById('systemStatus');
+            const statusText = document.getElementById('systemStatusText');
+            const nextSendTime = document.getElementById('nextSendTime');
+
+            if (schedulerRunning) {
+                statusIndicator.className = 'status-indicator status-active';
+                statusText.textContent = '系統狀態：運行中';
+
+                const autoSendEmails = emailSettings.filter(email => email.autoSend);
+                if (autoSendEmails.length > 0) {
+                    const nextTimes = autoSendEmails.map(email => email.time).sort();
+                    const now = new Date();
+                    const currentTime = now.getHours().toString().padStart(2, '0') + ':' +
+                        now.getMinutes().toString().padStart(2, '0');
+
+                    let nextTime = nextTimes.find(time => time > currentTime);
+                    if (!nextTime) {
+                        nextTime = nextTimes[0];
+                    }
+
+                    nextSendTime.textContent = `下次發送時間：${nextTime}`;
+                }
+            } else {
+                statusIndicator.className = 'status-indicator status-inactive';
+                statusText.textContent = '系統狀態：未啟動';
+                nextSendTime.textContent = '下次發送時間：--:--';
+            }
+        }
+
+        // 更新按鈕狀態
+        function updateButtonStates() {
+            const startBtn = document.getElementById('startBtn');
+            const stopBtn = document.getElementById('stopBtn');
+
+            // if (schedulerRunning) {
+            //     // startBtn.style.display = 'none';
+            //     // stopBtn.style.display = 'inline-block';
+            // } else {
+            //     startBtn.style.display = 'inline-block';
+            //     stopBtn.style.display = 'none';
+            // }
+        }
+
+        // 更新統計數據
+        function updateStatistics() {
+            document.getElementById('successCount').textContent = successCount;
+            document.getElementById('errorCount').textContent = errorCount;
+        }
+
+        // 添加記錄
+        function addLog(message, type = 'info') {
+            const logsContainer = document.getElementById('emailLogs');
+            const logItem = document.createElement('div');
+            logItem.className = `log-item log-${type}`;
+
+            logItem.innerHTML = `
+        <div class="log-content">
+          <div>${message}</div>
+        </div>
+        <div class="log-time">${new Date().toLocaleString()}</div>
+      `;
+
+            logsContainer.insertBefore(logItem, logsContainer.firstChild);
+
+            const logs = logsContainer.querySelectorAll('.log-item');
+            if (logs.length > 50) {
+                logsContainer.removeChild(logs[logs.length - 1]);
+            }
+        }
+
+        // 清除記錄
+        function clearLogs() {
+            if (confirm('確定要清除所有發送記錄嗎？')) {
+                const logsContainer = document.getElementById('emailLogs');
+                logsContainer.innerHTML = `
+          <div class="log-item log-info">
+            <div class="log-content">
+              <div>記錄已清除</div>
+            </div>
+            <div class="log-time">${new Date().toLocaleString()}</div>
+          </div>
+        `;
+
+                successCount = 0;
+                errorCount = 0;
+                localStorage.setItem('successCount', 0);
+                localStorage.setItem('errorCount', 0);
+                updateStatistics();
+
+                addLog('統計數據已重置', 'info');
+            }
+        }
+
+        // 頁面載入時初始化
+        document.addEventListener('DOMContentLoaded', function () {
+            initEmailSystem();
+            updateButtonStates();
+        });
+    </script>
+
+</body>
+
+</html>

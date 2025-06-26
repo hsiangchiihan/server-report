@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8">
+  <title>數據統計</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* 徹底隱藏所有滾動條 */
+    *::-webkit-scrollbar {
+      display: none;
+      width: 0 !important;
+      height: 0 !important;
+    }
+
+    * {
+      -ms-overflow-style: none !important;
+      /* IE and Edge */
+      scrollbar-width: none !important;
+      /* Firefox */
+    }
+
+    html,
+    body {
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      color: white;
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 30px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .stats-block {
+      background: white;
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .stats-block:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .block-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 2px solid #f0f0f0;
+    }
+
+    .block-icon {
+      font-size: 2rem;
+      margin-right: 15px;
+    }
+
+    .block-title {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: #333;
+      margin: 0;
+    }
+
+    .stat-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid #f5f5f5;
+      transition: background-color 0.2s ease;
+    }
+
+    .stat-item:hover {
+      background-color: #f8f9fa;
+      margin: 0 -25px;
+      padding-left: 25px;
+      padding-right: 25px;
+    }
+
+    .stat-item:last-child {
+      border-bottom: none;
+    }
+
+    .stat-label {
+      font-weight: 500;
+      color: #555;
+    }
+
+    .stat-value {
+      font-weight: 700;
+      color: #2c5aa0;
+      font-size: 1.1rem;
+    }
+
+    .overview-block {
+      grid-column: 1 / -1;
+      background: linear-gradient(135deg, #8a9ba8 0%, #7c8db5 100%);
+      color: white;
+      text-align: center;
+    }
+
+    .overview-block .block-title {
+      color: white;
+    }
+
+    .overview-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .overview-item {
+      background: rgba(255, 255, 255, 0.18);
+      padding: 20px;
+      border-radius: 10px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .overview-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .overview-label {
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+
+    .no-data {
+      text-align: center;
+      color: #999;
+      font-style: italic;
+      padding: 20px;
+    }
+
+    .loading {
+      text-align: center;
+      color: white;
+      font-size: 1.5rem;
+      margin-top: 50px;
+    }
+
+    .progress-bar {
+      background: #e0e0e0;
+      border-radius: 10px;
+      height: 8px;
+      overflow: hidden;
+      margin-left: 10px;
+      flex: 1;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #4CAF50, #8BC34A);
+      border-radius: 10px;
+      transition: width 0.3s ease;
+    }
+
+    .level-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .level-info {
+      display: flex;
+      align-items: center;
+      flex: 1;
+    }
+
+    .level-progress {
+      display: flex;
+      align-items: center;
+      flex: 1;
+      margin: 0 15px;
+    }
+
+    @media (max-width: 768px) {
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      .overview-stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+  <script>
+    const baseUrl = "https://script.google.com/macros/s/AKfycbyPBgJEWE5pVuZnxyX94AgFTLxl_lzhWJdlVRZgwjEPrer4PCRrZHslgT-RMowV6fPM/exec";
+
+    async function fetchAllData() {
+      try {
+        const res = await fetch(`${baseUrl}?action=listSheets`);
+        const sheetNames = await res.json();
+
+        const allData = [];
+        for (const name of sheetNames) {
+          const r = await fetch(`${baseUrl}?sheet=${name}`);
+          const json = await r.json();
+          allData.push(...json);
+        }
+
+        analyzeData(allData);
+      } catch (error) {
+        document.getElementById("stats").innerHTML = `
+          <div class="stats-block">
+            <p style="color: red; text-align: center;">讀取數據失敗: ${error.message}</p>
+          </div>
+        `;
+      }
+    }
+
+    function analyzeData(data) {
+      console.log("總數據筆數:", data.length);
+      console.log("前3筆數據:", data.slice(0, 3));
+      console.log("isCleared 欄位值:", [...new Set(data.map(row => row.isCleared))]);
+
+      const levelStats = {};
+      const itemStats = {};
+      const playTimePerDay = {};
+      const clearTimeStats = {};
+      const stepStats = {};
+      const damageStats = {};
+      const coinPerDay = {};
+
+      for (const row of data) {
+        const level = row.level || "1";
+        const cleared = row.isCleared === "TRUE" || row.isCleared === "true" || row.isCleared === true || row.isCleared === "1";
+        const sessionDate = row.sessionDate;
+
+        // 1. 關卡通關率統計
+        levelStats[level] = levelStats[level] || { total: 0, cleared: 0 };
+        levelStats[level].total++;
+        if (cleared) levelStats[level].cleared++;
+
+        // 2. 商品購買統計 - 修改為中文顯示
+        if (row.itemsBought && row.itemsBought !== "None") {
+          row.itemsBought.split(",").forEach(entry => {
+            const [item, count] = entry.trim().split(":");
+            if (item && count) {
+              // 將英文商品名稱轉換為中文
+              const itemNameMap = {
+                'life': '血量',
+                'clock': '時間',
+                'speed': '速度',
+                'revive': '復活'
+              };
+              const displayName = itemNameMap[item.toLowerCase()] || item;
+              itemStats[displayName] = (itemStats[displayName] || 0) + parseInt(count || 0);
+            }
+          });
+        }
+
+        // 3. 每日遊玩時數
+        if (row.playTime) {
+          const secs = timeToSeconds(row.playTime);
+          //   console.log(`處理時間: ${row.playTime} -> ${secs}秒`); // 調試信息
+
+          // 清理日期格式 - 移除時間部分，只保留日期
+          // const cleanDate = sessionDate ? sessionDate.split('T')[0] : sessionDate;
+          const cleanDate = sessionDate ? formatDateToTaiwan(sessionDate) : sessionDate;
+
+          if (!isNaN(secs) && secs > 0) {
+            playTimePerDay[cleanDate] = (playTimePerDay[cleanDate] || 0) + secs;
+          }
+
+          // 4. 通關平均耗時統計
+          if (cleared && !isNaN(secs) && secs > 0) {
+            clearTimeStats[level] = clearTimeStats[level] || [];
+            clearTimeStats[level].push(secs);
+          }
+        }
+
+        // 5. 通關平均步數統計
+        if (cleared && row.stepCount) {
+          stepStats[level] = stepStats[level] || [];
+          stepStats[level].push(parseInt(row.stepCount || 0));
+        }
+
+        // 6. 平均扣血量統計
+        if (row.damageTaken !== undefined) {
+          damageStats[level] = damageStats[level] || [];
+          damageStats[level].push(parseInt(row.damageTaken || 0));
+        }
+
+        // 7. 每日金幣統計
+        if (row.coinCount) {
+          // 清理日期格式 - 移除時間部分，只保留日期
+          // const cleanDate = sessionDate ? sessionDate.split('T')[0] : sessionDate;
+          const cleanDate = sessionDate ? formatDateToTaiwan(sessionDate) : sessionDate;
+
+          coinPerDay[cleanDate] = (coinPerDay[cleanDate] || 0) + parseInt(row.coinCount || 0);
+        }
+      }
+
+      // 計算總體統計
+      const totalGames = data.length;
+      const totalCleared = data.filter(row =>
+        row.isCleared === "TRUE" || row.isCleared === "true" || row.isCleared === true || row.isCleared === "1"
+      ).length;
+      const totalDamage = data.reduce((sum, row) => sum + parseInt(row.damageTaken || 0), 0);
+
+      // 修正總遊玩時間計算
+      const totalPlayTime = Object.values(playTimePerDay).reduce((sum, time) => {
+        const validTime = isNaN(time) ? 0 : time;
+        return sum + validTime;
+      }, 0);
+
+      // 調試信息
+      //   console.log("playTimePerDay:", playTimePerDay);
+      //   console.log("totalPlayTime:", totalPlayTime);
+      //   console.log("通關統計 stepStats:", stepStats);
+      console.log("通關資料詳細:", data.filter(row => {
+        const cleared = row.isCleared === "TRUE" || row.isCleared === "true" || row.isCleared === true || row.isCleared === "1";
+        return cleared;
+      }).map(row => ({
+        level: row.level,
+        isCleared: row.isCleared,
+        stepCount: row.stepCount
+      })));
+
+      document.getElementById("stats").innerHTML = `
+        <div class="stats-grid">
+          <!-- 總覽統計 -->
+          <div class="stats-block overview-block">
+            <div class="block-header">
+              <span class="block-icon">📊</span>
+              <h2 class="block-title">總覽統計</h2>
+            </div>
+            <div class="overview-stats">
+              <div class="overview-item">
+                <div class="overview-number">${totalGames}</div>
+                <div class="overview-label">總遊戲次數</div>
+              </div>
+              <div class="overview-item">
+                <div class="overview-number">${totalCleared}</div>
+                <div class="overview-label">總通關次數</div>
+              </div>
+              <div class="overview-item">
+                <div class="overview-number">${totalGames > 0 ? ((totalCleared / totalGames) * 100).toFixed(1) : 0}%</div>
+                <div class="overview-label">整體通關率</div>
+              </div>
+              <div class="overview-item">
+                <div class="overview-number">${totalPlayTime > 0 ? Math.round(totalPlayTime / 60) : 0}</div>
+                <div class="overview-label">總遊玩分鐘</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 關卡通關率統計 -->
+          <div class="stats-block">
+            <div class="block-header">
+              <span class="block-icon">🎯</span>
+              <h2 class="block-title">關卡通關率</h2>
+            </div>
+            ${Object.keys(levelStats).length > 0 ?
+          Object.entries(levelStats).map(([level, stat]) => {
+            const rate = ((stat.cleared / stat.total) * 100);
+            return `
+                  <div class="level-item">
+                    <div class="level-info">
+                      <span class="stat-label">第 ${level} 關</span>
+                    </div>
+                    <div class="level-progress">
+                      <div class="progress-bar">
+                        <div class="progress-fill" style="width: ${rate}%"></div>
+                      </div>
+                    </div>
+                    <div class="stat-value">${stat.cleared}/${stat.total} (${rate.toFixed(1)}%)</div>
+                  </div>
+                `;
+          }).join("") :
+          '<div class="no-data">暫無關卡數據</div>'
+        }
+          </div>
+
+          <!-- 商品購買統計 -->
+          <div class="stats-block">
+            <div class="block-header">
+              <span class="block-icon">🛒</span>
+              <h2 class="block-title">商品購買統計</h2>
+            </div>
+            ${Object.keys(itemStats).length > 0 ?
+          Object.entries(itemStats)
+            .sort(([, a], [, b]) => b - a)
+            .map(([item, count]) => `
+                  <div class="stat-item">
+                    <span class="stat-label">${item}</span>
+                    <span class="stat-value">${count} 個</span>
+                  </div>
+                `).join("") :
+          '<div class="no-data">無購買記錄</div>'
+        }
+          </div>
+
+          <!-- 每日遊玩時數 -->
+          <div class="stats-block">
+            <div class="block-header">
+              <span class="block-icon">⏰</span>
+              <h2 class="block-title">每日遊玩時數</h2>
+            </div>
+            ${Object.entries(playTimePerDay)
+          .sort(([dateA], [dateB]) => dateB.localeCompare(dateA))
+          .map(([date, secs]) => {
+            const hours = Math.floor(secs / 3600);
+            const minutes = Math.floor((secs % 3600) / 60);
+            const remainingSecs = secs % 60;
+            // 確保使用清理後的日期格式來計算遊戲局數
+            const gameCount = data.filter(row => {
+              // const cleanRowDate = row.sessionDate ? row.sessionDate.split('T')[0] : row.sessionDate;
+              const cleanRowDate = row.sessionDate ? formatDateToTaiwan(row.sessionDate) : row.sessionDate;
+
+              return cleanRowDate === date;
+            }).length;
+            return `
+                  <div class="stat-item">
+                    <div>
+                      <div class="stat-label">${date}</div>
+                      <div style="font-size: 0.8rem; color: #888;">${gameCount} 局遊戲</div>
+                    </div>
+                    <span class="stat-value">${hours}:${minutes.toString().padStart(2, '0')}:${remainingSecs.toString().padStart(2, '0')}</span>
+                  </div>
+                `;
+          }).join("")}
+          </div>
+
+          <!-- 通關平均耗時 -->
+          <div class="stats-block">
+            <div class="block-header">
+              <span class="block-icon">⚡</span>
+              <h2 class="block-title">通關平均耗時</h2>
+            </div>
+            ${Object.keys(clearTimeStats).length > 0 ?
+          Object.entries(clearTimeStats).map(([level, times]) => {
+            const avgTime = times.reduce((a, b) => a + b, 0) / times.length;
+            const minutes = Math.floor(avgTime / 60);
+            const seconds = Math.floor(avgTime % 60);
+            return `
+                  <div class="stat-item">
+                    <div>
+                      <div class="stat-label">第 ${level} 關</div>
+                      <div style="font-size: 0.8rem; color: #888;">基於 ${times.length} 次通關</div>
+                    </div>
+                    <span class="stat-value">${minutes}:${seconds.toString().padStart(2, '0')}</span>
+                  </div>
+                `;
+          }).join("") :
+          '<div class="no-data">暫無通關數據</div>'
+        }
+          </div>
+
+          <!-- 通關平均步數 -->
+          <div class="stats-block">
+            <div class="block-header">
+              <span class="block-icon">👣</span>
+              <h2 class="block-title">通關平均步數</h2>
+            </div>
+            ${Object.keys(stepStats).length > 0 ?
+          Object.entries(stepStats).map(([level, steps]) => `
+                <div class="stat-item">
+                  <div>
+                    <div class="stat-label">第 ${level} 關</div>
+                    <div style="font-size: 0.8rem; color: #888;">基於 ${steps.length} 次通關</div>
+                  </div>
+                  <span class="stat-value">${(steps.reduce((a, b) => a + b, 0) / steps.length).toFixed(1)} 步</span>
+                </div>
+              `).join("") :
+          '<div class="no-data">暫無通關步數數據</div>'
+        }
+          </div>
+
+          <!-- 平均扣血量統計 -->
+          <div class="stats-block">
+            <div class="block-header">
+              <span class="block-icon">❤️</span>
+              <h2 class="block-title">平均扣血量</h2>
+            </div>
+            ${Object.keys(damageStats).length > 0 ?
+          Object.entries(damageStats).map(([level, damages]) => `
+                <div class="stat-item">
+                  <div>
+                    <div class="stat-label">第 ${level} 關</div>
+                    <div style="font-size: 0.8rem; color: #888;">基於 ${damages.length} 局遊戲</div>
+                  </div>
+                  <span class="stat-value">${(damages.reduce((a, b) => a + b, 0) / damages.length).toFixed(1)} 點</span>
+                </div>
+              `).join("") :
+          '<div class="no-data">暫無扣血數據</div>'
+        }
+            <div class="stat-item" style="border-top: 2px solid #f0f0f0; margin-top: 10px; padding-top: 15px;">
+              <span class="stat-label">整體平均扣血量</span>
+              <span class="stat-value" style="color: #e74c3c;">${(totalDamage / totalGames).toFixed(1)} 點</span>
+            </div>
+          </div>
+
+          <!-- 每日金幣統計 -->
+          <div class="stats-block">
+            <div class="block-header">
+              <span class="block-icon">🪙</span>
+              <h2 class="block-title">每日金幣統計</h2>
+            </div>
+            ${Object.entries(coinPerDay)
+          .sort(([dateA], [dateB]) => dateB.localeCompare(dateA))
+          .map(([date, coins]) => {
+            // 確保使用清理後的日期格式來計算遊戲局數
+            const gameCount = data.filter(row => {
+              // const cleanRowDate = row.sessionDate ? row.sessionDate.split('T')[0] : row.sessionDate;
+              const cleanRowDate = row.sessionDate ? formatDateToTaiwan(row.sessionDate) : row.sessionDate;
+
+              return cleanRowDate === date;
+            }).length;
+            const avgCoins = gameCount > 0 ? (coins / gameCount).toFixed(0) : 0;
+            return `
+                  <div class="stat-item">
+                    <div>
+                      <div class="stat-label">${date}</div>
+                      <div style="font-size: 0.8rem; color: #888;">平均每局 ${avgCoins} 金幣</div>
+                    </div>
+                    <span class="stat-value">${coins.toLocaleString()} 金幣</span>
+                  </div>
+                `;
+          }).join("")}
+          </div>
+        </div>
+      `;
+    }
+
+
+    function formatDateToTaiwan(dateString) {
+      const date = new Date(dateString);
+      const taiwanTime = new Date(date.getTime() + 8 * 60 * 60 * 1000);
+      return taiwanTime.toISOString().split('T')[0];
+    }
+
+    function timeToSeconds(t) {
+      if (!t) {
+        // console.log("時間為空:", t);
+        return 0;
+      }
+
+      try {
+        let timeStr = t.toString();
+        // console.log("原始時間格式:", timeStr);
+
+        // 處理 PT00:00.:51 格式 (ISO 8601 duration)
+        if (timeStr.startsWith('PT')) {
+          // 移除 PT 前綴
+          timeStr = timeStr.substring(2);
+          //   console.log("移除PT後:", timeStr);
+
+          // 處理格式如 00:00.:51 或 00:00:51
+          // 修正可能的 .:XX 格式為 :XX
+          timeStr = timeStr.replace(/\.:(\d+)/, ':$1');
+          //   console.log("修正格式後:", timeStr);
+        }
+
+        // 分割時間
+        const parts = timeStr.split(":").map(Number);
+        // console.log("時間分割:", timeStr, "->", parts);
+
+        if (parts.length === 3) {
+          const [h, m, s] = parts;
+          if (isNaN(h) || isNaN(m) || isNaN(s)) {
+            // console.log("時間格式錯誤:", t, parts);
+            return 0;
+          }
+          const result = h * 3600 + m * 60 + s;
+          //   console.log("時間轉換結果:", t, "->", result + "秒");
+          return result;
+        } else if (parts.length === 2) {
+          // 處理 MM:SS 格式
+          const [m, s] = parts;
+          if (isNaN(m) || isNaN(s)) {
+            // console.log("時間格式錯誤(MM:SS):", t, parts);
+            return 0;
+          }
+          const result = m * 60 + s;
+          //   console.log("時間轉換結果(MM:SS):", t, "->", result + "秒");
+          return result;
+        } else {
+          //   console.log("時間格式不正確:", t, "分割後長度:", parts.length);
+          return 0;
+        }
+      } catch (error) {
+        // console.error("時間轉換錯誤:", t, error);
+        return 0;
+      }
+    }
+
+    window.onload = fetchAllData;
+  </script>
+</head>
+
+<body>
+  <div class="container">
+    <!-- <h1>🎮 遊戲數據統計分析</h1> -->
+    <div id="stats" class="loading">讀取數據中...</div>
+  </div>
+</body>
+
+</html>
