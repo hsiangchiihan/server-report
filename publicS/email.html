@@ -1,0 +1,29 @@
+<form id="emailForm">
+  <input type="email" id="to" placeholder="收件人 Email" required />
+  <input type="text" id="subject" placeholder="主旨" required />
+  <textarea id="html" placeholder="HTML 內容"></textarea>
+  <input type="text" id="cronTime" placeholder="Cron 表達式，例如 * * * * *" required />
+  <button type="submit">設置定時發送</button>
+</form>
+
+<script>
+document.getElementById('emailForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const payload = {
+        to: document.getElementById('to').value,
+        subject: document.getElementById('subject').value,
+        html: document.getElementById('html').value,
+        cronTime: document.getElementById('cronTime').value,
+    };
+
+    const res = await fetch('/api/email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+    });
+
+    const result = await res.json();
+    alert(result.message);
+});
+</script>
